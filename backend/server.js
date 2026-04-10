@@ -6,29 +6,25 @@ const cors = require('cors');
 app.use(cors()); // This allows the frontend to talk to the backend
 
 // Test route to see if the server is alive
-app.get('/', (req, res) => {
-    res.send("The Kitchen is OPEN!");
-});
 
 app.get('/api/students/search', (req, res) => {
     try {
         const query = req.query.q ? req.query.q.toLowerCase() : "";
 
-        // 1. Correctly find the file using the "Path Map"
-        const filePath = path.join(process.cwd(), 'student_data.json'); 
+        // 1. Use __dirname to find the file in the same folder as this script
+        const filePath = path.join(__dirname, 'student_data.json'); 
         
-        // 2. Read the file ONCE
+        // 2. Read the file
         const fileContent = fs.readFileSync(filePath, 'utf8');
         const data = JSON.parse(fileContent);
 
-        // 3. Filter the results
+        // 3. Filter
         const results = data.filter(s => s.name.toLowerCase().includes(query));
 
-        // 4. Send back the top 5
         res.json(results.slice(0, 5));
     } catch (error) {
-        console.error("Server Error:", error);
-        res.status(500).json({ error: "Could not read student data file" });
+        console.error("Detailed Error:", error); // This helps you see the real error in Vercel Logs
+        res.status(500).json({ error: "Could not read student data file", message: error.message });
     }
 });
 
