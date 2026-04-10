@@ -26,7 +26,7 @@ function App() {
     // REQUIREMENT: Only trigger after 3 characters (Lazy Loading) [cite: 14, 15, 30]
     // BONUS: Debounce function (using a 400ms timer) [cite: 38, 47]
     const timer = setTimeout(() => {
-      if (query.length >= 3) {
+      if (query.length >= 2) {
         fetch(`https://student-search-app-vert.vercel.app/api/students/search?q=${query}`)
           .then(res => res.json())
           .then(data => setSuggestions(data))
