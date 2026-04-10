@@ -27,7 +27,7 @@ function App() {
     // BONUS: Debounce function (using a 400ms timer) [cite: 38, 47]
     const timer = setTimeout(() => {
       if (query.length >= 3) {
-        fetch(`http://localhost:5000/api/students/search?q=${query}`)
+        fetch(`https://student-search-app-vert.vercel.app/api/students/search?q=${query}`)
           .then(res => res.json())
           .then(data => setSuggestions(data))
           .catch(err => console.error("API Error:", err));
