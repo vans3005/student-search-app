@@ -1,9 +1,9 @@
 const express = require('express');
-const cors = require('cors');
 const fs = require('fs');
-
+const cors = require('cors');
 const app = express();
-app.use(cors());
+app.use(cors()); // This allows the frontend to talk to the backend
+;
 
 // Test route to see if the server is alive
 app.get('/', (req, res) => {
